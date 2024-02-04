@@ -109,7 +109,10 @@ class _MyFormState extends State<MyForm> {
               title: 'Save',
               onPressed: () {
                 if (formKey.currentState!.validate()) {
-
+                  BlocProvider.of<NotesCubit>(context)..addNote(
+                    title: title.text,
+                    body: body.text,
+                  );
                   Navigator.pop(context);
                 }
               },

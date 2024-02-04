@@ -27,7 +27,6 @@ class HttpServices {
     required String url,
     Map<String, dynamic>? query,
     required Map<String, dynamic> data,
-    String token = '',
   }) async {
     dio.options.headers = {
       'Content-Type': 'application/json',

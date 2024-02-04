@@ -62,7 +62,7 @@ class NoteItem extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      'note title',
+                      note.title,
                       style: Theme.of(context).textTheme.bodyLarge,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -92,7 +92,7 @@ class NoteItem extends StatelessWidget {
               ),
               SizedBox(height: 10.h),
               Text(
-                'this is note body',
+                note.body,
                 style: Theme.of(context).textTheme.bodyMedium,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
@@ -101,7 +101,7 @@ class NoteItem extends StatelessWidget {
               Align(
                 alignment: AlignmentDirectional.centerEnd,
                 child: Text(
-                  'this is data',
+                  note.date,
                   style: Theme.of(context).textTheme.bodySmall,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

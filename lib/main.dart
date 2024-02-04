@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (BuildContext context) => AppCubit()),
         BlocProvider(
-            create: (BuildContext context) => NotesCubit()),
+            create: (BuildContext context) => NotesCubit()..getNotes()),
       ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},

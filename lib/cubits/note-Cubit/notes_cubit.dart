@@ -11,12 +11,33 @@ class NotesCubit extends Cubit<NotesStates> {
 
   static NotesCubit get(context) => BlocProvider.of(context);
 
-
+  void addNote({
+    required String title,
+    required String body,
+  }) async {
+    emit(AddNoteLoadingState());
+    String formatedDate = DateFormat.yMd().format(DateTime.now()).toString();
+    try {
+      await HttpServices.postData(
+        url: notesEndpoint,
+        data: {
+          'title': title,
+          'body': body,
+          'date': formatedDate,
+        },
+      );
+      emit(AddNoteSuccessState());
+      getNotes();
+    } catch (error) {
+      emit(AddNoteErrorState(error.toString()));
+    }
+  }
 
   List<NoteModel> notes = [];
 
   void getNotes() {
     emit(GetNotesLoadingState());
+    List<NoteModel> myNotes = [];
     HttpServices.getData(
       url: notesEndpoint,
       query: {},
@@ -24,9 +45,10 @@ class NotesCubit extends Cubit<NotesStates> {
       (value) {
         value.data.forEach(
           (element) {
-            notes.add(NoteModel.fromJson(element));
+            myNotes.add(NoteModel.fromJson(element));
           },
         );
+        notes = myNotes;
         emit(GetNotesSuccessState());
       },
     ).catchError(
