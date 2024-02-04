@@ -11,5 +11,28 @@ class NotesCubit extends Cubit<NotesStates> {
 
   static NotesCubit get(context) => BlocProvider.of(context);
 
+
+
   List<NoteModel> notes = [];
+
+  void getNotes() {
+    emit(GetNotesLoadingState());
+    HttpServices.getData(
+      url: notesEndpoint,
+      query: {},
+    ).then(
+      (value) {
+        value.data.forEach(
+          (element) {
+            notes.add(NoteModel.fromJson(element));
+          },
+        );
+        emit(GetNotesSuccessState());
+      },
+    ).catchError(
+      (error) {
+        emit(GetNotesErrorState(error));
+      },
+    );
+  }
 }
