@@ -21,7 +21,6 @@ class NoteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Animate(
-
       child: InkWell(
         borderRadius: BorderRadius.circular(20).w,
         onTap: () {
@@ -70,17 +69,32 @@ class NoteItem extends StatelessWidget {
                   ),
                   SizedBox(width: 5.w),
                   SquareIconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      BlocProvider.of<NotesCubit>(context).editNote(
+                        data: {
+                          'id': note.id,
+                          'is_pinned': note.isPinned,
+                        },
+                      );
+                    },
                     icon: Icons.push_pin_rounded,
-                    forgroundColor: Colors.lightGreen,
+                    forgroundColor: note.isPinned == 1
+                        ? Color(0xffF7F7F7)
+                        : Colors.lightGreen,
                     size: 40.w,
-                    borderWidth: 0,
+                    borderWidth: note.isPinned == 1 ? 0.5 : 0.0,
                     backgroundColor: Colors.black.withOpacity(0.5),
                   ),
                   SizedBox(width: 15.w),
                   SquareIconButton(
                     onPressed: () {
-
+                      BlocProvider.of<NotesCubit>(context).editNote(
+                        data: {
+                          'id': note.id,
+                          'in_trash': note.inTrash,
+                          'is_pinned' : 1 ,
+                        },
+                      );
                     },
                     icon: Icons.delete_rounded,
                     forgroundColor: Colors.deepOrangeAccent,

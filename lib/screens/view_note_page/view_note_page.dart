@@ -28,13 +28,13 @@ class ViewNotePage extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             slivers: [
               MyAppBar(
-                title: 'note.title',
+                title: note.title,
                 icon: Icons.edit,
                 iconAction: () {
                   Navigator.push(
                     context,
                     PageTransition(
-                      child: EditNotePage(noteModel: note),
+                      child: EditNotePage(note: note),
                       type: PageTransitionType.rightToLeft,
                     ),
                   );
@@ -62,7 +62,7 @@ class ViewNotePage extends StatelessWidget {
                       padding:
                           EdgeInsetsDirectional.symmetric(horizontal: 20.w),
                       child: Text(
-                        'this is body',
+                        note.body,
                         style: Theme.of(context).textTheme.bodyMedium!.merge(
                               const TextStyle(
                                 height: 1.5,
@@ -80,20 +80,12 @@ class ViewNotePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SquareIconButton(
-                      onPressed: () {},
-                      icon: Icons.push_pin_rounded,
-                      forgroundColor: Colors.lightGreen,
-                      size: 50.w,
-                      borderWidth: 0.5,
-                    ),
-                    SizedBox(width: 50.w),
-                    SquareIconButton(
                       onPressed: () {
                         Navigator.push(
                           context,
                           PageTransition(
                             child: EditNotePage(
-                              noteModel: note,
+                              note: note,
                             ),
                             type: PageTransitionType.rightToLeft,
                           ),
@@ -106,7 +98,16 @@ class ViewNotePage extends StatelessWidget {
                     ),
                     SizedBox(width: 50.w),
                     SquareIconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        BlocProvider.of<NotesCubit>(context).editNote(
+                          data: {
+                            'id': note.id,
+                            'in_trash': note.inTrash,
+                            'is_pinned' : 1 ,
+                          },
+                        );
+                        Navigator.pop(context);
+                      },
                       icon: Icons.delete_rounded,
                       forgroundColor: Colors.deepOrangeAccent,
                       size: 50.w,

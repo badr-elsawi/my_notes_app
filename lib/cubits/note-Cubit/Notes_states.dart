@@ -24,3 +24,24 @@ class GetNotesErrorState extends NotesStates {
 
   GetNotesErrorState(this.error);
 }
+
+// edit notes states *************************************
+class EditNotesLoadingState extends NotesStates {}
+class EditNotesSuccessState extends NotesStates {}
+
+class EditNotesErrorState extends NotesStates {
+  final String error;
+
+  EditNotesErrorState(this.error);
+}
+
+// edit notes states *************************************
+class DeleteNotesLoadingState extends NotesStates {}
+class DeleteNotesSuccessState extends NotesStates {}
+
+class DeleteNotesErrorState extends NotesStates {
+  final String error;
+
+  DeleteNotesErrorState(this.error);
+}
+

@@ -14,6 +14,9 @@ ThemeData lightTheme = ThemeData(
   elevatedButtonTheme: elevatedButtonTheme,
   bottomSheetTheme: bottomSheetTheme,
   floatingActionButtonTheme: floatingActionButtonTheme,
+  drawerTheme: DrawerThemeData(
+    backgroundColor: Color(0xff060E18),
+  )
 );
 
 // app bar theme *******************************************
@@ -136,6 +139,8 @@ BottomSheetThemeData bottomSheetTheme = BottomSheetThemeData(
   backgroundColor: Colors.transparent,
   modalBarrierColor: Colors.black.withOpacity(0.7),
 );
+
+
 
 FloatingActionButtonThemeData floatingActionButtonTheme =
     FloatingActionButtonThemeData(

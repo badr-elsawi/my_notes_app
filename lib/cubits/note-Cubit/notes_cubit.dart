@@ -57,4 +57,32 @@ class NotesCubit extends Cubit<NotesStates> {
       },
     );
   }
+
+  void editNote({required Map<String, dynamic> data}) async {
+    emit(EditNotesLoadingState());
+    try {
+      await HttpServices.putData(
+        url: notesEndpoint,
+        data: data,
+      );
+      emit(EditNotesSuccessState());
+      getNotes();
+    } catch (error) {
+      emit(EditNotesErrorState(error.toString()));
+    }
+  }
+
+  void deleteNote({required Map<String, dynamic> data}) async {
+    emit(DeleteNotesLoadingState());
+    try {
+      await HttpServices.deleteData(
+        url: notesEndpoint,
+        data: data,
+      );
+      emit(DeleteNotesSuccessState());
+      getNotes();
+    } catch (error) {
+      emit(DeleteNotesErrorState(error.toString()));
+    }
+  }
 }

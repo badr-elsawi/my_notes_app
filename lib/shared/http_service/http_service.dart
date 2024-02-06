@@ -8,7 +8,7 @@ class HttpServices {
   static init() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'http://192.168.1.6:5000/',
+        baseUrl: 'http://192.168.164.32:5000/',
         receiveDataWhenStatusError: true,
       ),
     );
@@ -43,5 +43,17 @@ class HttpServices {
       'Content-Type': 'application/json',
     };
     return dio.put(url, queryParameters: query, data: data);
+  }
+
+
+  static Future<Response> deleteData({
+    required String url,
+    Map<String, dynamic>? query,
+    required Map<String, dynamic> data,
+  }) async {
+    dio.options.headers = {
+      'Content-Type': 'application/json',
+    };
+    return dio.delete(url, queryParameters: query, data: data);
   }
 }
