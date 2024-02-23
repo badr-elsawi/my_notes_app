@@ -1,16 +1,41 @@
 # note_app
+## about
+A simple mobile application with a beautiful and friendly UI that allows user to take and edit notes .
+Pin the important ones and move unwanted to trash .
+## Packages
+##### flutter_bloc
+##### bloc
+##### flutter_screenutil
+##### page_transition
+##### flutter_animate
+##### conditional_builder_null_safety
+##### dio
+_________________
+## models
+#### note model
+```dart
 
-A new Flutter project.
+class NoteModel {
+  late int id;
+  late String title;
+  late String body;
+  late String date;
+  late int isPinned;
+  late int inTrash;
 
-## Getting Started
+  NoteModel.fromJson(Map<String,dynamic> json){
+    id = json['id'] ;
+    title = json['title'] ;
+    body = json['body'] ;
+    date = json['date'] ;
+    isPinned = json['is_pinned'] ;
+    inTrash = json['in_trash'] ;
+  }
+}
 
-This project is a starting point for a Flutter application.
+```
+_________________
+## features
+### get notes
+##### code :
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
