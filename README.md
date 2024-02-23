@@ -38,4 +38,34 @@ _________________
 ## features
 ### get notes
 ##### code :
-
+```dart
+void getNotes() {
+    emit(GetNotesLoadingState());
+    List<NoteModel> myNotes = [];
+    HttpServices.getData(
+      url: notesEndpoint,
+      query: {},
+    ).then(
+      (value) {
+        value.data.forEach(
+          (element) {
+            myNotes.add(NoteModel.fromJson(element));
+          },
+        );
+        notes = myNotes;
+        emit(GetNotesSuccessState());
+      },
+    ).catchError(
+      (error) {
+        emit(GetNotesErrorState(error));
+      },
+    );
+  }
+```
+After getting notes from the API request, all notes are added to the notes list .
+Then, notes are filtered in three categories pinned,unpinned, and inTrash .
+##### shots :
+<div>
+  <img src="https://github.com/badr-elsawi/my_notes_app/assets/88436763/aff1c8d4-566b-48b4-a6be-44f17b4d09d5" width="200">
+  <img src="https://github.com/badr-elsawi/my_notes_app/assets/88436763/676dda94-20a9-4956-a347-1a555a7d9117" width="200">
+</div>
