@@ -104,13 +104,12 @@ So, " 1 " is used to refer to true and " 0 " refers to false .
 The default value of isPinned is " 0 " .
 ##### code :
 ```dart
-              BlocProvider.of<NotesCubit>(context).editNote(
-                data: {
-                  'id': note.id,
-                  'in_trash': note.inTrash,
-                  'is_pinned' : 1 ,
-                },
-              );
+BlocProvider.of<NotesCubit>(context).editNote(
+                        data: {
+                          'id': note.id,
+                          'is_pinned': note.isPinned,
+                        },
+                      );
 ```
 When moving any pinned note to trash isPinned changes from " 1 " to " 0 " .
 ##### shots :
@@ -118,6 +117,61 @@ When moving any pinned note to trash isPinned changes from " 1 " to " 0 " .
   <img src="https://github.com/badr-elsawi/my_notes_app/assets/88436763/65bb5290-822b-4174-9515-b93c765fd8ff" width="200">
   <img src="https://github.com/badr-elsawi/my_notes_app/assets/88436763/293cfa6d-0ba7-4c8e-a027-94e5d48aba19" width="200">
   <img src="https://github.com/badr-elsawi/my_notes_app/assets/88436763/9696934f-cedb-4574-a5a4-e2a0290ddb63" width="200">
+</div>
+
+### edit note
+##### code :
+```dart
+BlocProvider.of<NotesCubit>(context).editNote(
+                    data: {
+                      'id' : note.id ,
+                      'title' : title.text ,
+                      'body' : body.text ,
+                    },
+                  );
+```
+```dart
+void editNote({
+    required Map<String, dynamic> data,
+  }) async {
+    emit(EditNotesLoadingState());
+    try {
+      await HttpServices.putData(
+        url: notesEndpoint,
+        data: data,
+      );
+      emit(EditNotesSuccessState());
+      getNotes();
+    } catch (error) {
+      emit(EditNotesErrorState(error.toString()));
+    }
+  }
+```
+After editing any note get notes request is called to update the notes list .
+##### shots :
+<div>
+  <img src="https://github.com/badr-elsawi/my_notes_app/assets/88436763/c8b87329-9d47-49d3-ab0c-544fd41ed164" width="200">
+  <img src="https://github.com/badr-elsawi/my_notes_app/assets/88436763/585152f3-3864-440f-8ed5-208424819247" width="200">
+</div>
+
+### move to trash
+When moving a pinned note to trash isPinned is changed from " 1 " to " 0 "
+##### code :
+```dart
+BlocProvider.of<NotesCubit>(context).editNote(
+                        data: {
+                          'id': note.id,
+                          'in_trash': note.inTrash,
+                          'is_pinned' : 1 ,
+                        },
+                      );
+```
+After moving a note to trash, there will be two available options 
+  - restore the note
+  - delete the note permanently
+##### screenshots :
+<div>
+  <img src="https://github.com/badr-elsawi/my_notes_app/assets/88436763/414b7d2d-aa4b-4d03-9720-36a5d223f623" width="200">
 </div>
 
 ## Packages
