@@ -105,11 +105,11 @@ The default value of isPinned is " 0 " .
 ##### code :
 ```dart
 BlocProvider.of<NotesCubit>(context).editNote(
-                        data: {
-                          'id': note.id,
-                          'is_pinned': note.isPinned,
-                        },
-                      );
+      data: {
+        'id': note.id,
+        'is_pinned': note.isPinned,
+      },
+    );
 ```
 When moving any pinned note to trash isPinned changes from " 1 " to " 0 " .
 ##### shots :
@@ -123,12 +123,12 @@ When moving any pinned note to trash isPinned changes from " 1 " to " 0 " .
 ##### code :
 ```dart
 BlocProvider.of<NotesCubit>(context).editNote(
-                    data: {
-                      'id' : note.id ,
-                      'title' : title.text ,
-                      'body' : body.text ,
-                    },
-                  );
+        data: {
+          'id' : note.id ,
+          'title' : title.text ,
+          'body' : body.text ,
+        },
+      ); 
 ```
 ```dart
 void editNote({
@@ -159,12 +159,12 @@ When moving a pinned note to trash isPinned is changed from " 1 " to " 0 "
 ##### code :
 ```dart
 BlocProvider.of<NotesCubit>(context).editNote(
-                        data: {
-                          'id': note.id,
-                          'in_trash': note.inTrash,
-                          'is_pinned' : 1 ,
-                        },
-                      );
+    data: {
+      'id': note.id,
+      'in_trash': note.inTrash,
+      'is_pinned' : 1 ,
+    },
+  );
 ```
 After moving a note to trash, there will be two available options 
   - restore the note
@@ -174,6 +174,18 @@ After moving a note to trash, there will be two available options
   <img src="https://github.com/badr-elsawi/my_notes_app/assets/88436763/414b7d2d-aa4b-4d03-9720-36a5d223f623" width="200">
 </div>
 
+### delete note permanently
+This option is available only if the note is in trash .
+##### code :
+```dart
+BlocProvider.of<NotesCubit>(context).deleteNote(
+  data: {
+    'id': note.id,
+    'in_trash': note.inTrash,
+  },
+);
+```
+_______________________________________________________
 ## Packages
 ##### flutter_bloc
 ##### bloc
