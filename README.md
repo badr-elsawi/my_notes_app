@@ -98,6 +98,28 @@ After adding the note successfully the app will call get notes request to update
   <img src="https://github.com/badr-elsawi/my_notes_app/assets/88436763/8e134078-6cee-4a89-b149-8e89cb0fcbea" width="200">
 </div>
 
+### Pin / unpin
+In SQL, there isn’t a direct boolean data type. Instead, you work with other data types to achieve similar functionality.
+So, " 1 " is used to refer to true and " 0 " refers to false .
+The default value of isPinned is " 0 " .
+##### code :
+```dart
+              BlocProvider.of<NotesCubit>(context).editNote(
+                data: {
+                  'id': note.id,
+                  'in_trash': note.inTrash,
+                  'is_pinned' : 1 ,
+                },
+              );
+```
+When moving any pinned note to trash isPinned changes from " 1 " to " 0 " .
+##### shots :
+<div>
+  <img src="https://github.com/badr-elsawi/my_notes_app/assets/88436763/65bb5290-822b-4174-9515-b93c765fd8ff" width="200">
+  <img src="https://github.com/badr-elsawi/my_notes_app/assets/88436763/293cfa6d-0ba7-4c8e-a027-94e5d48aba19" width="200">
+  <img src="https://github.com/badr-elsawi/my_notes_app/assets/88436763/9696934f-cedb-4574-a5a4-e2a0290ddb63" width="200">
+</div>
+
 ## Packages
 ##### flutter_bloc
 ##### bloc
