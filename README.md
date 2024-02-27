@@ -187,13 +187,13 @@ BlocProvider.of<NotesCubit>(context).deleteNote(
 ```
 _______________________________________________________
 ## Packages
-##### flutter_bloc
-##### bloc
-##### flutter_screenutil
-##### page_transition
-##### flutter_animate
-##### conditional_builder_null_safety
-##### dio
+  - ##### flutter_bloc
+  - ##### bloc
+  - ##### flutter_screenutil
+  - ##### page_transition
+  - ##### flutter_animate
+  - ##### conditional_builder_null_safety
+  - ##### dio
 _______________________
 ## Dockerizing
 ### How to dockerize ?
