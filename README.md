@@ -212,54 +212,31 @@ The best available way to dockerize a flutter application is to build the applic
   - set the server
 ##### Dockerfile
 ```Dockerfile
-# Install Operating system and dependencies
-FROM ubuntu
-RUN apt-get update 
+# Stage 1
+FROM debian:latest AS build-env
+
+RUN apt-get update
 RUN apt-get install -y curl git wget unzip libgconf-2-4 gdb libstdc++6 libglu1-mesa fonts-droid-fallback lib32stdc++6 python3
 RUN apt-get clean
-# download Flutter SDK from Flutter Github repo
+
 RUN git clone https://github.com/flutter/flutter.git /usr/local/flutter
-# Set flutter environment path
+
 ENV PATH="/usr/local/flutter/bin:/usr/local/flutter/bin/cache/dart-sdk/bin:${PATH}"
-# Run flutter doctor
-RUN flutter doctor
-# Enable flutter web
+
+RUN flutter doctor -v
+
 RUN flutter channel master
 RUN flutter upgrade
 RUN flutter config --enable-web
-# Copy files to container and build
+
 RUN mkdir /app/
 COPY . /app/
 WORKDIR /app/
 RUN flutter build web
-# Record the exposed port
-EXPOSE 5000
-# make server startup script executable and start the web server
-RUN ["chmod", "+x", "/app/server/server.sh"]
-ENTRYPOINT [ "/app/server/server.sh"]
+
+# Stage 2
+FROM nginx:1.21.1-alpine
+COPY --from=build-env /app/build/web /usr/share/nginx/html
+
 ```
-##### set server script file
-``` bash
-#!/bin/bash
-# Set the port
-PORT=5000
-# Stop any program currently running on the set port
-echo 'preparing port' $PORT '...'
-fuser -k 5000/tcp
-# switch directories
-cd build/web/
-# Start the server
-echo 'Server starting on port' $PORT '...'
-python3 -m http.server $PORT
-```
-### issues while dockerizing
-##### issue ! :
-  To enable HTTP requests " chrome.dart " in the flutter sdk must be modified ( web security should be enabled )
-  - it was solved By gitting a fork from the flutter sdk and modify the " chrome.dart " file then clone the new repo .
-##### issue 2 : 
-  After cloning flutter sdk from unofficial repo you won't be able to upgrade flutter version .
-  - avoid running flutter upgrade
-##### issues 3 :
-  It was anieve mistake that the API container and the flutter app container were running on the same port
-  - All you just need is to change the port of the API container or the app container
 _____________________________________________________________________________________
